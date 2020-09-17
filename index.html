@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <title>실습 sticky navigation</title>
+    <style>
+   
+@media screen and (min-width:1280px) {
+  *{margin: 0px; padding: 0px;}
+        ul, ol, li{list-style:none;}
+        a{text-decoration: none;color:#333;}
+        body{font-family:"맑은 고딕",arial,sans-serif;font-size:12px;color:#333; box-sizing:border-box;}
+        header{width:100%;height:116px;}
+/*        #header_top > h1{width:1200px;margin:0px auto;padding-top:20px;}*/
+        #header_top > h1{text-indent:16%; padding-top:20px;}
+        #header_top, nav{height:58px; background:#532b0f;}
+        .gnb{width:60%; height:58px;margin:0px auto;}
+        .gnb > li{float:left; padding:0px 28px;text-align:center;line-height:58px;}
+        .gnb > li:first-child{margin-left: 200px;}
+        .gnb > li > a{color:#fff;font-size:18px;font-weight:bold; text-transform: capitalize;}
+        .gnb > li > a:hover{color:#c59794;}
+/*        메뉴클릭시 a태그에 적용할거 */
+        .on{color: #c59794 !important;}
+    .gnbRight{position:fixed; right: 0px; background: rgba(0, 0, 0, 0.7); width:6%; height:50%; z-index: 100; top:58px;}
+    .gnbRight > nav{}
+    .gnbRight > nav > ul{position:fixed; top:220px; right:6px;}
+    .gnbRight > nav > ul > li{margin-bottom:78px;}
+    .gnbRight > nav > ul > li > a{color: #fff; font-size:16px; font-weight:bold; font-style:normal; margin:auto 16px; transition:0.6s;}
+    .gnbRight > nav > ul > li > a:hover{color: #333; background:rgba(255, 255, 255, 0.7); border-radius:5px;}
+        section{clear:both;overflow:hidden;}
+        section #visual{width:100%;height:810px;background-image: url(./img/main01.jpg);position:relative; /* 부모요소 기준 */}
+        #visual img{position:absolute; opacity:0;}
+        #visual img:first-child{top:15%;right:0px; opacity:0.5;width:300px;}
+        #visual img:last-child{ left:0%;bottom:20%;opacity:0.5;}
+        article:not(#visual){width:1280px;margin:0px auto; height:988px;}
+        .sub_con{}
+        .sub_con img{width: 100%;}
+        .sub_con .innerImg > img{width: 50%;display: block;}
+        #wgler, #con{transform: translateX(-320px);}
+        #design, #safe{transform: translateX(320px);}
+        #tech{width:100% !important; height:1500px !important; overflow: hidden;}
+        #tech img{width:100% !important; transform:translateY(-160px);}
+        #tech .innerImg{width: 50%;z-index: 100; display:flex; transform:translateY(-460px);}
+        #contact{width: 100% !important;margin:0px;}
+        footer{width:100%;height:80px;background-color:#222;}
+        footer address{font-style:normal;color: #fff;text-align: center;line-height: 80px;}
+        footer > a{background-color: #000;color:#fff;font-size:20px;padding:12px 10px;position:fixed;bottom:90px;right:50px;}
+        .act{ width:100%;z-index:1000;position:fixed;top:0px;left:0px;}
+        .status{ background-color:#ff0;color:#f00;position:fixed;right:30px;top:100px;z-index: 7777;}
+}
+       
+    </style>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+     <script>
+        $(function(){
+            //탑버튼 숨기기
+            $('footer a').hide();
+            
+            //비주얼 이미지 영역에 타이틀 자동차 사진 보이게하기
+            var title = $('#visual img:first-child');
+            var car = $('#visual img:last-child');
+            
+            car.animate({'left':'20%',opacity:'1'},500);
+            title.delay(500).animate({right:'10%',opacity:'1'},500);
+            
+            //네비게이션 메뉴 클릭시 해당하는 컨텐츠 상단 top:58px 위치에 올라오게 하기
+            $('.gnb > li').on({'click focus':function(){
+                var num = $(this).index()+1; //1,2,3,4,5,6 0번은 비쥬얼박스 인덱스갑이라서 필요없음.
+                console.log(num);
+                
+                var con = $('section article').eq(num).offset().top; //각 콘텐츠 article에 top위치값을 변수에 저장.
+                
+                $('html, body').animate({scrollTop:con-58},500);// 각 콘텐츠가 스크롤 높이 58픽셀까지 상단으로 애니메이션 되면서 올라감. 
+            }
+            });
+            
+                $(window).scroll(function(){
+                    var sPos = $(window).scrollTop();
+                    
+                    $('.status').text(sPos);
+                    
+                    if(sPos >= 700){//스크롤 높이가 700픽셀 이상이면
+                        $('footer a').fadeIn();//탑버튼 나오게
+                    }else{
+                        $('footer a').fadeOut();//탑버튼 안나오게
+                    }
+                    
+                    if(sPos >= 58){
+                        $('nav').addClass('act');
+                    }else{
+                        $('nav').removeClass('act');
+                    }
+                //각 해당하는 컨텐츠가 상단으로 올라오면 해당하는 메뉴에 서식 적용
+                    
+                  var h = $('section article').height();
+                    //각 컨텐츠 높이값을 구하는 변수
+
+                    
+                     //각 해당하는 컨텐츠가 상단으로 올라오면 해당하는 메뉴에 서식 적용
+                    if(sPos >= 776&&sPos < 1899){
+                        $('.gnb a').removeClass('on');//기존적용된 서식 제거
+                        $('.gnb li:first-child a').addClass('on');
+                    }else if(sPos >= 1900&&sPos < 2899){
+                        $('.gnb a').removeClass('on');
+                        $('.gnb li:nth-child(2) a').addClass('on');
+                    }else if(sPos >= 2900&&sPos < 4200){
+                        $('.gnb a').removeClass('on');
+                        $('.gnb li:nth-child(3) a').addClass('on');
+                    }else if(sPos >= 4300&&sPos < 5325){
+                        $('.gnb a').removeClass('on');
+                        $('.gnb li:nth-child(4) a').addClass('on');
+                    }else if(sPos >= 5326&&sPos < 6925){
+                        $('.gnb a').removeClass('on');
+                        $('.gnb li:nth-child(5) a').addClass('on');
+                    }else if(sPos >= 6926&&sPos < 7825){
+                        $('.gnb a').removeClass('on');
+                        $('.gnb li:nth-child(6) a').addClass('on');
+                    }else if(sPos >= 7826){
+                        $('.gnb a').removeClass('on');
+                        $('.gnb li:last-child a').addClass('on');
+                    }else{
+                        $('.gnb a').removeClass('on');
+                    }
+                    
+                });
+            
+               $('footer a').click(function(){//탑버튼 클릭시
+                        $('html, body').animate({scrollTop:'0px'},300);//화면 상단으로 올리기 
+                        return false;
+                    });
+        });
+    </script>
+
+</head>
+<body>
+<!--   <span class="status"> </span>-->
+    <header>
+    <div id="header_top">
+        <h1><a href="index.html" title="메인페이지로 바로가기"><img src="./img/logo-jeep.png" alt="상단로고"></a></h1>
+    </div>   
+    <nav>
+<!--        ul.gnb>li*7>a[href=# title=]-->
+   <ul class="gnb">
+       <li><a href="#" title="wrangler">wrangler</a></li>
+       <li><a href="#" title="design">design</a></li>
+       <li><a href="#" title="technology">technology</a></li>
+       <li><a href="#" title="jeep story">jeep <span>story</span></a></li>
+       <li><a href="#" title="jeep promotion">jeep <span>promotion</span></a></li>
+       <li><a href="#" title="contact us">Contact Us</a></li>
+   </ul>
+    </nav>    
+
+    </header>
+    
+    <address class="gnbRight">
+        <nav>
+            <ul>
+                <li><a href="#contact" title="구매">구매신청</a></li>
+                <li><a href="#contact" title="시승">시승신청</a></li>
+            </ul>
+        </nav>
+    </address>
+<!-- 콘텐츠 영역 시작 -->
+<section id="cont">
+    <article id="visual">
+        <img src="./img/bubble.png" alt="타이틀 이미지">
+        <img src="./img/logo-jeep.png" alt="자동차 사진">
+        
+    </article>
+    <div class="innerCont">
+    <article class="sub_con" id="wgler">
+        <div><img src="./img/wrangler20-2.jpg" alt=""></div>
+    </article>
+    <article class="sub_con" id="design">
+        <div><img src="./img/wrangler20-3.jpg" alt=""></div>
+    </article>
+    <article class="sub_con" id="tech">
+        <div><img src="./img/wrangler20-4.jpg" alt=""></div>
+        </article>
+    <article class="sub_con" id="con">
+        <div><img src="./img/wrangler20-5.jpg" alt=""></div>        
+    </article>
+    <article class="sub_con" id="tech">
+        <div><img src="./img/wrangler20-7.jpg" alt="">
+        <div class="innerImg">
+            <img src="./img/wrangler20-6.jpg" alt="">
+            <img src="./img/wrangler20-8.jpg" alt="">
+        </div>
+        </div>
+        </article>
+    <article class="sub_con" id="safe">
+        <div><img src="./img/wrangler20-9.jpg" alt="">
+        
+        </div>
+        
+        </article>    
+    <article class="sub_con" id="contact">
+        <div><img src="./img/wrangler20-10.jpg" alt=""></div>
+        </article>  
+    </div>  
+</section>
+
+<!-- 푸터영역 -->
+<footer>
+    <a href="#" title="페이지 상단으로 바로가기">Top</a>
+    <address>Copyright&copy;2020 Jeep Korea allrights reserved.</address>
+</footer>
+
+</body>
+</html>

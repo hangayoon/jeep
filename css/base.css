@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+@font-face{
+    font-family:"NanumGothic";
+    src:local('NanumGothic')
+        url('http://jjyworld.dothome.co.kr/fonts/NunumGohtic.eot')
+        url('http://jjyworld.dothome.co.kr/fonts/NunumGohtic.ttf')
+        url('http://jjyworld.dothome.co.kr/fonts/NunumGohtic.woff')
+}
+
+body{
+    font-family:"NanumGothic",arial,sans-serif;
+    font-size:12px;
+    color:#333;
+    background-image:url('../ban/img/bg01.jpg');
+}
+
+a{
+    color:#333;
+    text-decoration:none;
+}

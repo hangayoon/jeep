@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="">
+    <title>Jeep event page</title>
+    <link href="css/index.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+ <!--    <script>
+        $(function(){
+            //탑버튼 숨기기
+            $('footer a').hide();
+            
+            //비주얼 이미지 영역에 타이틀 자동차 사진 보이게하기
+            var title = $('#visual img:first-child');
+            var car = $('#visual img:last-child');
+            
+            car.animate({'left':'20%',opacity:'1'},500);
+            title.delay(500).animate({right:'20%',opacity:'1'},500);
+            
+            //네비게이션 메뉴 클릭시 해당하는 컨텐츠 상단 top:58px 위치에 올라오게 하기
+            $('.gnb > li').on({'click focus':function(){
+                var num = $(this).index()+1; //1,2,3,4,5,6 0번은 비쥬얼박스 인덱스갑이라서 필요없음.
+                console.log(num);
+                
+                var con = $('section article').eq(num).offset().top; //각 콘텐츠 article에 top위치값을 변수에 저장.
+                
+                $('html, body').animate({scrollTop:con-58},500);// 각 콘텐츠가 스크롤 높이 58픽셀까지 상단으로 애니메이션 되면서 올라감. 
+            }
+            });
+            
+                $(window).scroll(function(){
+                    var sPos = $(window).scrollTop();
+                    
+                    $('.status').text(sPos);
+                    
+                    if(sPos >= 700){//스크롤 높이가 700픽셀 이상이면
+                        $('footer a').fadeIn();//탑버튼 나오게
+                    }else{
+                        $('footer a').fadeOut();//탑버튼 안나오게
+                    }
+                    
+                    if(sPos >= 58){
+                        $('nav').addClass('act');
+                    }else{
+                        $('nav').removeClass('act');
+                    }
+                //각 해당하는 컨텐츠가 상단으로 올라오면 해당하는 메뉴에 서식 적용
+                    
+                  var h = $('section article').height();
+                    //각 컨텐츠 높이값을 구하는 변수
+
+                    
+                    if(sPos >= h*1&&sPos<h*2){
+                        $('.gnb a').removeClass('on');//기존적용된 서식 제거
+                        $('.gnb >li').eq(0).find('a').addClass('on');
+                    }else if(sPos >=h*2&&sPos < h*3){
+                        $('.gnb a').removeClass('on');
+                        $('.gnb li').eq(1).find('a').addClass('on');
+                    }else if(sPos >= h*3&&sPos < h*4){
+                        $('.gnb a').removeClass('on');
+                        $('.gnb li').eq(2).find('a').addClass('on');
+                    }else if(sPos >= h*4&&sPos < h*5){
+                        $('.gnb a').removeClass('on');
+                        $('.gnb li').eq(3).find('a').addClass('on');
+                    }else if(sPos >= h*5&&sPos < h*6){
+                        $('.gnb a').removeClass('on');
+                        $('.gnb li').eq(4).find('a').addClass('on');
+                    }else if(sPos >= h*6&&sPos < h*7){
+                        $('.gnb a').removeClass('on');
+                        $('.gnb li').eq(5).find('a').addClass('on');
+                    }else if(sPos >= h*7){
+                        $('.gnb a').removeClass('on');
+                        $('.gnb li').eq(6).find('a').addClass('on');
+                    }else{
+                        $('.gnb a').removeClass('on');
+                    }
+                });
+            
+               $('footer a').click(function(){//탑버튼 클릭시
+                        $('html, body').animate({scrollTop:'0px'},300);//화면 상단으로 올리기 
+                        return false;
+                    });
+        });
+    </script>  -->
+    <script>
+    $(function(){
+        /*
+        $(window).scroll(function(){
+                    var sPos = $(window).scrollTop();
+                    
+                    $('.status').text(sPos);
+                    
+                    if(sPos >= 700){//스크롤 높이가 700픽셀 이상이면
+                        $('footer a').fadeIn();//탑버튼 나오게
+                    }else{
+                        $('footer a').fadeOut();//탑버튼 안나오게
+                    }
+        */
+        $(window).scroll(function(){
+           var sTops = $(window).scrollTop();
+            
+            
+            if(sTops >= 600){
+                $('.main img').animate({height:'600px'},1000);
+            }else if(sTops <= 999){
+                $('.main img').animate({top:'-500px'},1000);
+            }
+        });
+    });
+    </script>
+
+</head>
+<body>
+    <header>
+        <h1><a href="index.html" title="지프로고">
+        <img src="./img/logo-jeep.png" alt="지프로고"></a></h1>
+        
+        <nav class="gnb">
+            <ul class="gnbTop">
+                <li><a href="#none" title="구매신청하기">구매신청</a></li>
+                <li><a href="#none" title="시승신청하기">시승신청</a></li>
+            </ul>
+            <ul class="mainGnb">
+                <li><a href="#none" title="앵글러">wrangler</a></li>
+                <li><a href="#none" title="디자인">design</a></li>
+                <li><a href="#none" title="기술">tachnology</a></li>
+                <li><a href="#none" title="지프스토리">jeep <span>story</span></a></li>
+                <li><a href="#none" title="지프프로모션">jeep <span>promotion</span></a></li>
+                <li><a href="#none" title="문의하기">contact us</a></li>
+            </ul>
+        </nav>
+        
+    </header>
+    <section>
+        <div class="main">
+            <img src="./img/wrangler20-1.jpg" alt="">
+        </div>
+        <div>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            
+        </div>
+    </section>
+    <footer>
+        
+    </footer>
+</body>
+</html>
